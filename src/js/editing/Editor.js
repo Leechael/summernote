@@ -224,6 +224,10 @@ define([
       var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)\.html/;
       var youkuMatch = sUrl.match(youkuRegExp);
 
+      var qqRegExp = /\/\/v\.qq\.com\/iframe\/player\.html\?vid=(\w+)/;
+      var qqMatch = sUrl.match(qqRegExp);
+      //console.log(qqMatch);
+
       var $video;
       if (ytMatch && ytMatch[2].length === 11) {
         var youtubeId = ytMatch[2];
@@ -254,6 +258,11 @@ define([
           .attr('height', '498')
           .attr('width', '510')
           .attr('src', '//player.youku.com/embed/' + youkuMatch[1]);
+      } else if (qqMatch && qqMatch[1].length) {
+        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
+          .attr('height', '498')
+          .attr('width', '510')
+          .attr('src', '//v.qq.com/iframe/player.html?vid=' + qqMatch[1] + '&tiny=0&auto=0');
       } else {
         // this is not a known video link. Now what, Cat? Now what?
       }
